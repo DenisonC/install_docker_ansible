@@ -1,6 +1,6 @@
 ---
 - name: Instalar Docker no Ubuntu Server
-  hosts: "masters, workers"
+  hosts: masters
   become: yes
   tasks:
     - name: Atualizar cache de pacotes
@@ -16,6 +16,11 @@
         - ca-certificates
         - curl
         - software-properties-common
+
+    - name: Adicionar chave GPG do Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present    
 
     - name: Adicionar repositório do Docker
       apt_repository:
